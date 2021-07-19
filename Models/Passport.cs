@@ -7,7 +7,7 @@ namespace StaffBase.Models
 {
     public class Passport
     {
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
         public String Type { get; set; }
         public String Number { get; set; }
     }
