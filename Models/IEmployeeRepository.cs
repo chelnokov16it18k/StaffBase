@@ -41,21 +41,18 @@ namespace StaffBase.Models
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                /*var sqlQuery = "INSERT INTO Staff (Name, Surname, Phone) VALUES(@Name, @Surname, @Phone)";
-                db.Execute(sqlQuery, employee);*/
+                var sqlQuery = "INSERT INTO Department (Name, Phone) VALUES (@Name, @Phone); SELECT MAX(Id) FROM Department";
+                int departmentId = db.Query<int>(sqlQuery, employee.Department).FirstOrDefault();
+                employee.DepartmentId = departmentId;
 
-                // работа с id
-                var sqlQuery = "INSERT INTO Staff (Name, Surname, Phone, CompanyId) VALUES(@Name, @Surname, @Phone, @CompanyId); SELECT CAST(SCOPE_IDENTITY() as int)";
+                sqlQuery = "INSERT INTO Staff (Name, Surname, Phone, CompanyId, DepartmentId) VALUES(@Name, @Surname, @Phone, @CompanyId, @DepartmentId); SELECT CAST(SCOPE_IDENTITY() as int)";
                 int employeeId = db.Query<int>(sqlQuery, employee).FirstOrDefault();
 
+                employee.Passport.EmployeeId = employeeId;
                 sqlQuery = "INSERT INTO Passport (EmployeeId, Type, Number) VALUES(@EmployeeId, @Type, @Number)";
-                employee.Passport.EmployeeId = employee.Id;
                 db.Execute(sqlQuery, employee.Passport);
 
-                sqlQuery = "INSERT INTO Department (Name, Phone) VALUES (@Name, @Phone)";
-                employee.DepartmentId = employee.Department.id;
-                db.Execute(sqlQuery, employee.Department);
-
+                
             }
         }
 
