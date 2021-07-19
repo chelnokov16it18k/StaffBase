@@ -1,0 +1,37 @@
+﻿@model IEnumerable<StaffBase.Models.Employee>
+@{
+    ViewData["Title"] = "Список сотрудников";
+}
+<h2>@ViewData["Title"]</h2>
+<p>
+    <a asp-controller="Home" asp-action="Create">Добавить сотрудника</a>
+</p>
+<table class="table">
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Номер телефона</th>
+        <th>Id компании</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Name</td>
+    <td>
+        @item.Surname
+    </td>
+    <td>
+        @item.Phone
+    </td>
+    <td>
+        @item.CompanyId
+    </td>
+    <td>
+        <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
+        <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+    </td>
+</tr>
+    }
+</table>
