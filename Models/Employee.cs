@@ -13,6 +13,8 @@ namespace StaffBase.Models
         public string Phone { get; set; }
         public int CompanyId { get; set; }
         public int DepartmentId { get; set; }
+        public Passport Passport { get; set; }
+        public Department Department { get; set; }
 
     }
 }

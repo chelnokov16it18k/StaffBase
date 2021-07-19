@@ -45,9 +45,14 @@ namespace StaffBase.Models
                 db.Execute(sqlQuery, employee);*/
 
                 // если мы хотим получить id добавленного пользователя
-                var sqlQuery = "INSERT INTO Staff (Name, Surname, Phone, CompanyId) VALUES(@Name, @Surname, @Phone, @CompanyId); SELECT CAST(SCOPE_IDENTITY() as int)";
+
+                 
+                var sqlQuery = "INSERT INTO Staff (Name, Surname, Phone, Company) VALUES(@Name, @Surname, @Phone, @CompanyId); SELECT CAST(SCOPE_IDENTITY() as int)";
                 int? employeeId = db.Query<int>(sqlQuery, employee).FirstOrDefault();
-                employee.Id = employeeId.Value;
+                employee.Id = employeeId.Value;//ЭТО АЙДИ ПОЛЬЗОВАТЕЛЯ
+                //А НИЖЕ ЗАПРОС, КУДА НУЖНО ЕГО ВСТАВИТЬ
+                sqlQuery = "INSERT INTO Passport (EmployeeId, Type, Number) VALUES(@EmployeeId, @Type, @Number)";
+                db.Execute(sqlQuery, employee);
             }
         }
 

@@ -12,6 +12,10 @@
         <th>Фамилия</th>
         <th>Номер телефона</th>
         <th>Id компании</th>
+        <th>Тип паспорта</th>
+        <th>Номер паспорта</th>
+        <th>Название отдела</th>
+        <th>Телефон отдела</th>
         <th></th>
     </tr>
 
@@ -27,6 +31,18 @@
     </td>
     <td>
         @item.CompanyId
+    </td>
+    <td>
+        @item.Passport.Type
+    </td>
+    <td>
+        @item.Passport.Number
+    </td>
+    <td>
+        @item.Department.Name
+    </td>
+    <td>
+        @item.Department.Phone
     </td>
     <td>
         <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id">Изменить</a> |
